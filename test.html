@@ -1,0 +1,23 @@
+<html>
+<body>
+	<canvas id="full" width="600" height="600" style="border:3px solid"></canvas>
+	<script>
+		var locatoinX = [];
+		var img = new Image();
+		img.src = "https://i.imgur.com/lQx1bV0.jpg";
+		window.onload = function() {
+			var locationPointer = 0;
+			var c = document.getElementById("full");
+			var ctx = c.getContext("2d");
+			ctx.drawImage(img, 0, 0,600,600);
+			c.onclick = function() { 
+				var x = event.clientX;     
+				var y = event.clientY;
+				ctx.beginPath();
+				ctx.arc(x-10,y-10,10,0,2*Math.PI);
+				ctx.fill(); 
+			};
+		}
+	</script>
+</body>
+</html>
