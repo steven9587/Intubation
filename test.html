@@ -1,22 +1,53 @@
 <html>
+<head>
+	<link rel="stylesheet" href="style.css">
+</head>
 <body>
-	<canvas id="full" width="600" height="600" style="border:3px solid"></canvas>
-	<script>
-		var locatoinX = [];
+	<div class="row">
+		<div class="column">
+			<canvas id="full" width="600" height="600" style=" border:5px solid"></canvas>
+		</div>
+		<div class="column">
+			<canvas id="dataInput" width="600" height="600" style=" border:5px solid"></canvas>
+			<div>
+				<button  onclick="add()" >加入</button>
+			</div>
+		</div>
+	</div>
+</body>
+
+<script>
+	var locatoinX = [];
+	var locatoinY = [];
+	var intubation = false;
+		//讀取資料庫資訊塞進陣列裡面
+		var locationPointer = locatoinX.length;
 		var img = new Image();
 		img.src = "https://i.imgur.com/lQx1bV0.jpg";
 		window.onload = function() {
-			var locationPointer = 0;
-			var c = document.getElementById("full");
-			var ctx = c.getContext("2d");
-			ctx.drawImage(img, 0, 0,600,600);
-			c.onclick = function() { 
-				var x = event.clientX;     
-				var y = event.clientY;
-				ctx.beginPath();
-				ctx.arc(x-10,y-10,10,0,2*Math.PI);
-				ctx.fill(); 
+			var lc = document.getElementById("full");
+			var lctx = lc.getContext("2d");
+			lctx.drawImage(img, 0, 0,600,600);
+			lc.onclick = function() { 
+				if (intubation) {
+					var x = event.clientX;     
+					var y = event.clientY;
+					locatoinX[locationPointer] = x;
+					locatoinY[locationPointer] = y;
+					locationPointer = locationPointer + 1;
+				}
+				for (var i = 0; i <= locationPointer; i++) {
+					lctx.beginPath();
+					lctx.arc(locatoinX[i]-15,locatoinY[i]-15,5,0,2*Math.PI);
+					lctx.fill(); 
+				}
 			};
+		}
+		function add(){
+			intubation = true;
+		}
+		function save(){
+			intubation = false;
 		}
 	</script>
 </body>
