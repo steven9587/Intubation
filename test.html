@@ -1,54 +1,92 @@
 <html>
+
 <head>
-	<link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style.css">
+    
 </head>
+
 <body>
-	<div class="row">
-		<div class="column">
-			<canvas id="full" width="600" height="600" style=" border:5px solid"></canvas>
-		</div>
-		<div class="column">
-			<canvas id="dataInput" width="600" height="600" style=" border:5px solid"></canvas>
-			<div>
-				<button  onclick="add()" >加入</button>
-			</div>
-		</div>
-	</div>
+    <div class="row">
+        <div class="Full_column">
+            <canvas id="full" width="600" height="600" style=" border:5px solid"></canvas>
+        </div>
+        <div class="helloworld">
+            <div class="type_group">
+                <form action="/action_page.php">
+                    位置: <input type="text" name="location" value="位置">
+                </form>
+                管路:
+                <select>
+                    <option value="volvo">Type1</option>
+                    <option value="saab">Type2</option>
+                    <option value="opel">Type3</option>
+                    <option value="audi">Type4</option>
+                </select><br><br>
+                放置日期:
+                <input id="date" name="input_date" value=" "><br><br>
+                已放置天數:
+                <input type="text" name="day_num" value="天數">天<br><br>
+                管路口徑:
+                <input type="number" name="caliber" value="0" min="1" max="15">mm<br><br>
+                管路大小:
+                <input type="number" name="caliber" value="0" min="1" max="15">mm<br><br>
+                <textarea name="message" style="resize:none;width:300px; height:130px;">we can leave a message here....</textarea><br><br>
+                <button onclick="add()">Insert</button><br>
+                <button>Edit</button><br>
+                <button>Delete</button><br>
+                <button onclick="save()">Save</button><br>
+            </div>
+        </div>
+        <!--
+        <div class="column">
+            <canvas id="dataInput" width="600" height="600" style=" border:5px solid"></canvas>
+            <span class="add_button">
+                <button onclick="add()">加入</button>
+            </span>
+        </div>
+-->
+    </div>
+    <script>
+        var locatoinX = [];
+        var locatoinY = [];
+        var intubation = false;
+        //讀取資料庫資訊塞進陣列裡面
+        var locationPointer = locatoinX.length;
+        var img = new Image();
+        img.src = "https://i.imgur.com/lQx1bV0.jpg";
+        window.onload = function() {
+            var lc = document.getElementById("full");
+            var lctx = lc.getContext("2d");
+            lctx.drawImage(img, 0, 0, 600, 600);
+            lc.onclick = function() {
+                if (intubation) {
+                    var x = event.clientX;
+                    var y = event.clientY;
+                    locatoinX[locationPointer] = x;
+                    locatoinY[locationPointer] = y;
+                    locationPointer = locationPointer + 1;
+                }
+                for (var i = 0; i < locationPointer; i++) {
+                    lctx.beginPath();
+                    lctx.arc(locatoinX[i] - 15, locatoinY[i] - 15, 5, 0, 2 * Math.PI);
+                    lctx.fill();
+                }
+            };
+        }
+
+        function add() {
+            intubation = true;
+            var mydateInput = document.getElementById("date");
+            var date = new Date();
+            var dateString = date.getFullYear()+"/"+(date.getMonth()+1)+"/"+date.getDate();
+            mydateInput.value=dateString;
+        }
+
+        function save() {
+            intubation = false;
+        }
+
+    </script>
 </body>
 
-<script>
-	var locatoinX = [];
-	var locatoinY = [];
-	var intubation = false;
-		//讀取資料庫資訊塞進陣列裡面
-		var locationPointer = locatoinX.length;
-		var img = new Image();
-		img.src = "https://i.imgur.com/lQx1bV0.jpg";
-		window.onload = function() {
-			var lc = document.getElementById("full");
-			var lctx = lc.getContext("2d");
-			lctx.drawImage(img, 0, 0,600,600);
-			lc.onclick = function() { 
-				if (intubation) {
-					var x = event.clientX;     
-					var y = event.clientY;
-					locatoinX[locationPointer] = x;
-					locatoinY[locationPointer] = y;
-					locationPointer = locationPointer + 1;
-				}
-				for (var i = 0; i <= locationPointer; i++) {
-					lctx.beginPath();
-					lctx.arc(locatoinX[i]-15,locatoinY[i]-15,5,0,2*Math.PI);
-					lctx.fill(); 
-				}
-			};
-		}
-		function add(){
-			intubation = true;
-		}
-		function save(){
-			intubation = false;
-		}
-	</script>
-</body>
 </html>

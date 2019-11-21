@@ -1,12 +1,36 @@
 /* Three image containers (use 25% for four, and 50% for two, etc) */
-.column {
+.row::after {
+    content: "";
+    clear: both;
+    display: table;
+    width: 100%;
+}
+
+
+.helloworld {
+    width: 300;
+    height: 600;
+    border:5px solid;
+    float: left;
+    padding: 5px;
+}
+
+
+.Full_column {
 	float: left;
 	padding: 5px;
 }
 
-/* Clear floats after image containers */
-.row::after {
-	content:"";
-	clear: both;
-	display: table;
+.type_group button {
+  background-color: lightblue; /* Green background */
+  color: lightyellow; /* White text */
+  padding: 10px 24px; /* Some padding */
+  cursor: pointer; /* Pointer/hand icon */
+  width: 100%; /* Set a width if needed */
+  display: block; /* Make the buttons appear below each other */
 }
+
+.type_group button:hover {
+  background-color: gray;
+}
+
