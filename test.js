@@ -49,6 +49,18 @@ window.onload = function () {
             locatoinY[locationPointer] = y;
             locationPointer = locationPointer + 1;
         }
+        if (intubation==2) {
+            for (var i = 0; i < locationPointer; i++) {
+             if(event.clientX >= locatoinX[i]-5 && event.clientX <= locatoinX[i]+10 && event.clientY>= locatoinY[i]-5 && event.clientY<= locatoinY[i]+10){
+                 locatoinX.splice(i,1);
+                 locatoinY.splice(i,1);
+                 locationPointer = locationPointer - 1;
+
+             }
+         }
+
+     }
+        lctx.drawImage(img, 0, 0, 600, 600);
         for (var i = 0; i < locationPointer; i++) {
             lctx.beginPath();
             lctx.arc(locatoinX[i] - 15, locatoinY[i] - 15, 5, 0, 2 * Math.PI);
@@ -64,7 +76,16 @@ function add() {
     var dateString = date.getFullYear() + "/" + (date.getMonth() + 1) + "/" + date.getDate();
     mydateInput.value = dateString;
 }
+function Delete(){
+   
+    intubation=2;
+    var x = event.clientX;
+    var y = event.clientY;
+    locatoinX[locationPointer] = x;
+    locatoinY[locationPointer] = y;
+    locationPointer = locationPointer + 1;
 
+ }
 function save() {
     intubation = false;
 }
