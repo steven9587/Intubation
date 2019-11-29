@@ -54,8 +54,6 @@ window.onload = function () {
              if(event.clientX >= locatoinX[i]-5 && event.clientX <= locatoinX[i]+10 && event.clientY>= locatoinY[i]-5 && event.clientY<= locatoinY[i]+10){
                  locatoinX.splice(i,1);
                  locatoinY.splice(i,1);
-                 locationPointer = locationPointer - 1;
-
              }
          }
 
@@ -77,14 +75,7 @@ function add() {
     mydateInput.value = dateString;
 }
 function Delete(){
-   
     intubation=2;
-    var x = event.clientX;
-    var y = event.clientY;
-    locatoinX[locationPointer] = x;
-    locatoinY[locationPointer] = y;
-    locationPointer = locationPointer + 1;
-
  }
 function save() {
     intubation = false;
