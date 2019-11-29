@@ -32,7 +32,7 @@ $("#PipelineName").kendoDropDownList({
 });
 var locatoinX = [];
 var locatoinY = [];
-var intubation = false;
+var intubation = 0;
 //讀取資料庫資訊塞進陣列裡面
 var locationPointer = locatoinX.length;
 var img = new Image();
@@ -42,7 +42,7 @@ window.onload = function () {
     var lctx = lc.getContext("2d");
     lctx.drawImage(img, 0, 0, 600, 600);
     lc.onclick = function () {
-        if (intubation) {
+        if (intubation==1) {
             var x = event.clientX;
             var y = event.clientY;
             locatoinX[locationPointer] = x;
@@ -54,6 +54,7 @@ window.onload = function () {
              if(event.clientX >= locatoinX[i]-5 && event.clientX <= locatoinX[i]+10 && event.clientY>= locatoinY[i]-5 && event.clientY<= locatoinY[i]+10){
                  locatoinX.splice(i,1);
                  locatoinY.splice(i,1);
+                 locationPointer = locationPointer -1 ;
              }
          }
 
@@ -68,7 +69,7 @@ window.onload = function () {
 }
 
 function add() {
-    intubation = true;
+    intubation = 1;
     var mydateInput = document.getElementById("date");
     var date = new Date();
     var dateString = date.getFullYear() + "/" + (date.getMonth() + 1) + "/" + date.getDate();
